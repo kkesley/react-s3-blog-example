@@ -1,0 +1,53 @@
+service:
+  name: example-app-deploy
+
+provider:
+  name: aws
+  region: ap-southeast-2
+
+resources:
+  Resources:
+    CodebuildRole:
+      Type: AWS::IAM::Role
+      Properties: 
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement: 
+            - Effect: Allow
+              Principal: 
+                Service: 
+                  - codebuild.amazonaws.com
+              Action: sts:AssumeRole
+        Policies:
+          - PolicyName: ${self:service.name}-build-policy
+            PolicyDocument: 
+              Version: '2012-10-17'
+              Statement: 
+                - Effect: Allow
+                  Action:
+                    - cloudformation:*
+                    - cloudwatch:*
+                    - iam:*
+                    - logs:*
+                    - s3:*
+                  Resource: '*'
+    CodeBuildProject:
+      Type: AWS::CodeBuild::Project
+      Properties:
+        Name: ${self:service.name}
+        Description: My website builder
+        ServiceRole: !Ref CodeBuildRole
+        Artifacts:
+          Type: NO_ARTIFACTS
+        BadgeEnabled: true
+        Environment:
+          ComputeType: BUILD_GENERAL1_SMALL
+          Image: aws/codebuild/standard:2.0
+          Type: LINUX_CONTAINER
+        Source:
+          Location: https://github.com/myuser/myproject.git
+          Type: GITHUB
+        Cache:
+          Modes:
+            - LOCAL_CUSTOM_CACHE
+          Type: LOCAL
