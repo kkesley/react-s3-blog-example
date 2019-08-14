@@ -6,11 +6,10 @@ phases:
       nodejs: 10
     commands:
       - npm install
-      - export CI=true
   build:
     commands:
       - npm run build
-      - aws s3 cp ./build s3://$(WEBISTE_BUCKET) --recursive
+      - aws s3 cp ./build s3://$WEBISTE_BUCKET --recursive
 cache:
   paths:
     - node_modules/**/*
