@@ -26,10 +26,16 @@ resources:
                 - Effect: Allow
                   Action:
                     - logs:*
-                  Resource: '*'
+                  Resource:
+                    Fn::Join:
+                      - ':'
+                      - - arn:aws:logs
+                        - !Ref AWS::Region
+                        - !Ref AWS::AccountId
+                        - log-group:/aws/codebuild/example-app-deploy:*:*
                 - Effect: Allow
                   Action: s3:PutObject
-                  Resource: arn:aws:s3:::example-app-dev-frontpagewebsitebucket-19jr14sozhbv6
+                  Resource: arn:aws:s3:::example-app-dev-frontpagewebsitebucket-19jr14sozhbv6/*
                 - Effect: Allow
                   Action: cloudfront:CreateInvalidation
                   Resource: arn:aws:cloudfront::344260392803:distribution/E12MWEG8DY8FNG
