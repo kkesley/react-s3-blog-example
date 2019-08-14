@@ -26,8 +26,13 @@ resources:
                 - Effect: Allow
                   Action:
                     - logs:*
-                    - s3:*
                   Resource: '*'
+                - Effect: Allow
+                  Action: s3:PutObject
+                  Resource: arn:aws:s3:::example-app-dev-frontpagewebsitebucket-19jr14sozhbv6
+                - Effect: Allow
+                  Action: cloudfront:CreateInvalidation
+                  Resource: arn:aws:cloudfront::344260392803:distribution/E12MWEG8DY8FNG
     CodeBuildProject:
       Type: AWS::CodeBuild::Project
       Properties:
