@@ -9,7 +9,7 @@ phases:
   build:
     commands:
       - npm run build
-      - aws s3 cp ./build s3://$WEBISTE_BUCKET --recursive
+      - aws s3 cp ./build s3://$WEBSITE_BUCKET --recursive
 cache:
   paths:
     - node_modules/**/*
