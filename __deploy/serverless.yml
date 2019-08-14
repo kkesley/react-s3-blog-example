@@ -69,7 +69,3 @@ resources:
         Source:
           Location: https://github.com/kkesley/react-s3-blog-example.git
           Type: GITHUB
-        Cache:
-          Modes:
-            - LOCAL_CUSTOM_CACHE
-          Type: LOCAL
