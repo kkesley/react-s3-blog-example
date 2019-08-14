@@ -7,7 +7,7 @@ provider:
 
 resources:
   Resources:
-    CodebuildRole:
+    CodeBuildRole:
       Type: AWS::IAM::Role
       Properties: 
         AssumeRolePolicyDocument:
@@ -25,9 +25,6 @@ resources:
               Statement: 
                 - Effect: Allow
                   Action:
-                    - cloudformation:*
-                    - cloudwatch:*
-                    - iam:*
                     - logs:*
                     - s3:*
                   Resource: '*'
@@ -45,7 +42,7 @@ resources:
           Image: aws/codebuild/standard:2.0
           Type: LINUX_CONTAINER
         Source:
-          Location: https://github.com/myuser/myproject.git
+          Location: https://github.com/kkesley/react-s3-blog-example.git
           Type: GITHUB
         Cache:
           Modes:

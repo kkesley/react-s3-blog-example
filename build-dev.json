@@ -1,0 +1,9 @@
+{
+    "projectName": "example-app-deploy",
+    "sourceVersion": "master",
+    "environmentVariablesOverride": [
+      { "name": "STAGE", "value": "dev", "type": "PLAINTEXT" },
+      { "name": "WEBSITE_BUCKET", "value": "example-app-dev-frontpagewebsitebucket-19jr14sozhbv6", "type": "PLAINTEXT" }
+    ],
+    "buildspecOverride": "./buildspec.yml"
+}
