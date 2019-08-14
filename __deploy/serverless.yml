@@ -32,13 +32,28 @@ resources:
                       - - arn:aws:logs
                         - !Ref AWS::Region
                         - !Ref AWS::AccountId
-                        - log-group:/aws/codebuild/example-app-deploy:*:*
+                        - log-group
+                        - /aws/codebuild/example-app-deploy
+                        - '*'
+                        - '*'
                 - Effect: Allow
                   Action: s3:PutObject
-                  Resource: arn:aws:s3:::example-app-dev-frontpagewebsitebucket-19jr14sozhbv6/*
+                  Resource: 
+                    Fn::Join:
+                      - ':'
+                      - - arn:aws:s3
+                        - ''
+                        - ''
+                        - example-app-dev-frontpagewebsitebucket-19jr14sozhbv6/*
                 - Effect: Allow
                   Action: cloudfront:CreateInvalidation
-                  Resource: arn:aws:cloudfront::344260392803:distribution/E12MWEG8DY8FNG
+                  Resource: 
+                    Fn::Join:
+                      - ':'
+                      - - arn:aws:cloudfront
+                        - ''
+                        - !Ref AWS::AccountId
+                        - distribution/E12MWEG8DY8FNG
     CodeBuildProject:
       Type: AWS::CodeBuild::Project
       Properties:
@@ -47,7 +62,6 @@ resources:
         ServiceRole: !Ref CodeBuildRole
         Artifacts:
           Type: NO_ARTIFACTS
-        BadgeEnabled: true
         Environment:
           ComputeType: BUILD_GENERAL1_SMALL
           Image: aws/codebuild/standard:2.0
